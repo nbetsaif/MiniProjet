@@ -71,6 +71,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                       shrinkWrap: true,
                       children: [
                         cubit.bodyScreens[cubit.currentIndex],
+                        SizedBox(height: 100,)
                       ],
                     );
                   },
