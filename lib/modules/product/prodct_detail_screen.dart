@@ -1,0 +1,92 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_projet/layout/cubit/cubit.dart';
+import 'package:mini_projet/layout/cubit/states.dart';
+import 'package:mini_projet/shared/styles/colors.dart';
+import 'package:mini_projet/shared/widgets/custom_button.dart';
+import 'package:mini_projet/shared/widgets/expandable_text_widget.dart';
+
+class ProductScreen extends StatelessWidget {
+  int index;
+   ProductScreen({Key? key,required this.index}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth=MediaQuery.of(context).size.width;
+    return BlocConsumer<LayoutCubit,LayoutStates>(
+      listener: (context, state) {},
+      builder: ((context, state) {
+        return Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              leading: IconButton(icon: Icon(Icons.arrow_back_ios_new,color: Colors.black,),onPressed: (){Navigator.pop(context);}),
+            ),
+            body:SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start  ,
+                  children: [
+                    SizedBox(
+                      height: 180,
+                      child: Row(
+                        children: [
+                          Expanded(child: Hero(tag: 'image$index',child: Image.asset("assets/images/test2.png",height: 160,width:double.infinity,fit: BoxFit.cover,)),),
+                          SizedBox(width: 10,),
+                          Expanded(child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(height: 10,),
+                              SizedBox(
+                                  width: screenWidth*0.3,
+                                  child: Center(child: Text('Artsy',style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis,))),
+                              SizedBox(height: 10,),
+                              Text("Wallet with chain",maxLines: 1,style: TextStyle(fontSize: 14),),
+                              SizedBox(height: 10,),
+                              Text("Style #36252 0YK0G 1000",maxLines: 1,style: TextStyle(fontSize: 14,color: Colors.black.withOpacity(.4)),),
+                              SizedBox(height: 10,),
+                              Text('\$564',style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                              SizedBox(height: 10,),
+                              CustomButton(buttonText: 'BUY NOW ',onPressed: (){},width: screenWidth*0.3,center: true,)
+
+                            ],)),
+
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 30,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Description',style: TextStyle(fontWeight: FontWeight.bold),),
+                        InkWell(
+                          onTap: (){},
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(Icons.favorite_border),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    ExpandableTextWidget(text: 'As in handbags, the double ring and bar design defines the wallet shape, highlighting the front flap closure which is tucked inside the hardware. Completed with an organizational interior, the black leather wallet features a detachable chain.As in handbags, the double ring and bar design defines the wallet shape, highlighting the front flap closure which is tucked iAs in handbags, the double ring and bar design defines the wallet shape, highlighting the front flap closure which is tucked iAs in handbags, the double ring and bar design defines the wallet shape, highlighting the front flap closure which is tucked i'),
+                    SizedBox(height: 30,),
+                    Text('Material & care',style: TextStyle(fontWeight: FontWeight.bold),),
+                    SizedBox(height: 10,),
+                    ExpandableTextWidget(text: "All products are made with carefully selected materials. Please handle with care for longer product life.Protect from direct light, heat and rain. Should itbecome wet, dry it immediately with a soft clothStore in the provided flannel bag or boxClean with a soft, dry cloth"),
+                    SizedBox(height: 10,),
+                    CustomButton(onPressed: (){
+                      Navigator.pop(context);
+                      LayoutCubit.get(context).changeScreen(2);
+                    },buttonText: "Check All Orders",margin: EdgeInsets.symmetric(horizontal:60), transparent: true,height: 50,),
+                    SizedBox(height: 10,)
+                  ],
+                ),
+              ),
+            )
+        );
+      }
+      ),);
+  }
+}

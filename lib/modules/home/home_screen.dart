@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_projet/layout/cubit/states.dart';
 import 'package:mini_projet/modules/home/widget/widgets.dart';
+import 'package:mini_projet/modules/product/prodct_detail_screen.dart';
 import 'package:mini_projet/shared/styles/colors.dart';
 import '../../layout/cubit/cubit.dart';
 import '../../shared/widgets/custom_button.dart';
@@ -55,7 +56,9 @@ class HomeScreen extends StatelessWidget {
                         physics: BouncingScrollPhysics(),
                         gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10,mainAxisExtent: 210),
                         itemBuilder: (context,index){
-                        return gridItem(index,context);
+                        return InkWell(
+                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductScreen(index: index,)));},
+                            child: gridItem(index,context));
                         },
                       itemCount: 6,
                     ),

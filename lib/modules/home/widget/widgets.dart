@@ -69,6 +69,7 @@ Widget sliderItem(int index, context,) {
 }
 
 Widget gridItem(int index,context){
+  double screenWidth=MediaQuery.of(context).size.width;
   return Stack(
     alignment: Alignment.topRight,
     children: [
@@ -80,7 +81,9 @@ Widget gridItem(int index,context){
         child: Column(
           children: [
             SizedBox(height: 10,),
-            Image.asset("assets/images/test2.png",height: 110,width: 110,fit: BoxFit.cover,),
+            Hero(
+              tag: 'image$index',
+                child: Image.asset("assets/images/test2.png",height: 110,width: screenWidth*0.3,fit: BoxFit.cover,)),
             SizedBox(height: 10,),
             Expanded(
               child: Column(
@@ -89,7 +92,7 @@ Widget gridItem(int index,context){
                   SizedBox(height: 15,),
                   Text("SHOP NOW",maxLines: 1,),
                   SizedBox(height: 5,),
-                  Container(height: 2,color: Colors.black,width: 150,),
+                  Container(height: 2,color: Colors.black,width:  screenWidth*0.33,),
                 ],
               ),
             )

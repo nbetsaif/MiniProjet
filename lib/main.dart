@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_projet/layout/cubit/cubit.dart';
+import 'package:mini_projet/modules/home/home_screen.dart';
+import 'package:mini_projet/modules/product/prodct_detail_screen.dart';
 import 'package:mini_projet/shared/styles/theme.dart';
 import 'layout/layout_screen.dart';
 
@@ -13,10 +17,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiBlocProvider(providers: [
+      BlocProvider(create: (context) => LayoutCubit())
+    ], child: MaterialApp(
       theme: Themes.lightTheme,
       debugShowCheckedModeBanner: false,
       home: LayoutScreen(),
-    );
+    ));
   }
 }
