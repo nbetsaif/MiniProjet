@@ -43,3 +43,6 @@ class UserErrorState extends LayoutStates{
   UserErrorState(this.error);
 }
 class UserUpdateLoadingState extends LayoutStates{}
+
+class UserStartEditProfileState extends LayoutStates{}
+class UserDoneEditProfileState extends LayoutStates{}

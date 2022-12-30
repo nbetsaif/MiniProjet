@@ -51,9 +51,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 20.0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.blue,
-                ),
+                child: Icon(cubit.listOfIcons[cubit.currentIndex],color: Colors.black,size: 25,),
               )
             ],
           ),

@@ -40,4 +40,17 @@ class LayoutCubit extends Cubit<LayoutStates>{
     ProfileScreen()
   ];
 
+  //edit profile
+bool editingProfile=false;
+
+void startEditProfile(){
+  editingProfile=true;
+  emit(UserStartEditProfileState());
+}
+
+void doneEditProfile(){
+  editingProfile=false;
+  emit(UserDoneEditProfileState());
+
+}
 }
