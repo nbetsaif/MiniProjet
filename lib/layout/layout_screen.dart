@@ -1,4 +1,3 @@
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +6,8 @@ import 'package:mini_projet/layout/cubit/cubit.dart';
 import 'package:mini_projet/layout/cubit/states.dart';
 
 class LayoutScreen extends StatefulWidget {
-  const LayoutScreen({Key? key}) : super(key: key);
+  final bool isClient;
+  const LayoutScreen({required this.isClient,Key? key}) : super(key: key);
 
   @override
   State<LayoutScreen> createState() => _LayoutScreenState();
@@ -37,6 +37,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = LayoutCubit.get(context);
+        cubit.isClient=widget.isClient;
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -45,13 +46,18 @@ class _LayoutScreenState extends State<LayoutScreen> {
               color: Colors.black,
             ),
             title: Text(
-              cubit.appBarTitles[cubit.currentIndex],
+             widget.isClient==true? cubit.appBarTitles[cubit.currentIndex]:cubit.appBarTraderTitles[cubit.currentIndex],
               style: TextStyle(fontWeight: FontWeight.w700),
             ),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 20.0),
-                child: Icon(cubit.listOfIcons[cubit.currentIndex],color: Colors.black,size: 25,),
+                child: Icon(
+                  widget.isClient==true?
+                  cubit.listOfIcons[cubit.currentIndex]:cubit.listOfTraderIcons[cubit.currentIndex],
+                  color: Colors.black,
+                  size: 25,
+                ),
               )
             ],
           ),
@@ -63,14 +69,16 @@ class _LayoutScreenState extends State<LayoutScreen> {
                 onPageChanged: (index) {
                   cubit.changeScreen(index);
                 },
-                itemCount: cubit.bodyScreens.length,
+                itemCount:widget.isClient==true? cubit.bodyScreens.length:cubit.bodyTraderScreens.length,
                 itemBuilder: (context, index) {
                   return ListView(
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     children: [
-                      cubit.bodyScreens[cubit.currentIndex],
-                      SizedBox(height: 100,)
+                      widget.isClient==true? cubit.bodyScreens[cubit.currentIndex]:cubit.bodyTraderScreens[cubit.currentIndex],
+                      SizedBox(
+                        height: 100,
+                      )
                     ],
                   );
                 },
@@ -80,7 +88,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                 child: Stack(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(bottom: 20,right: 10,left: 10),
+                      margin: EdgeInsets.only(bottom: 20, right: 10, left: 10),
                       alignment: Alignment.center,
                       height: 65,
                       decoration: BoxDecoration(
@@ -91,12 +99,11 @@ class _LayoutScreenState extends State<LayoutScreen> {
                             blurRadius: 40,
                           )
                         ],
-                        borderRadius: BorderRadius.circular(30
-                        ),
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      child:ListView.builder(
-                        shrinkWrap: true,
-                          itemCount: 4,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: widget.isClient==true?4:3,
                           scrollDirection: Axis.horizontal,
                           padding: EdgeInsets.symmetric(
                             horizontal: screenWidth * .047,
@@ -111,15 +118,15 @@ class _LayoutScreenState extends State<LayoutScreen> {
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               child: Container(
-                                  width: screenWidth * .21,
+                                  width:widget.isClient==true? screenWidth * .21:screenWidth*.29,
                                   alignment: Alignment.center,
                                   child: FaIcon(
-                                    cubit.listOfIcons[index],
-                                    size:cubit.currentIndex==index?  35:25,
+                                    widget.isClient==true? cubit.listOfIcons[index]:cubit.listOfTraderIcons[index],
+                                    size: cubit.currentIndex == index ? 35 : 25,
                                     color: index == cubit.currentIndex
                                         ? Colors.black
                                         : Colors.black26,
-                                  )))) ,
+                                  )))),
                     ),
                   ],
                 ),

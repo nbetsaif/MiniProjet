@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_projet/layout/cubit/cubit.dart';
+import 'package:mini_projet/layout/cubit/states.dart';
 
 import '../../../shared/styles/colors.dart';
+import '../../../shared/widgets/custom_button.dart';
+import '../../../shared/widgets/custom_form_field.dart';
 
 Widget sliderItem(int index, context,) {
   return Stack(
@@ -104,5 +109,80 @@ Widget gridItem(int index,context){
         child: Icon(Icons.favorite_border),
       )
     ],
+  );
+}
+
+Widget newItem(context,LayoutCubit cubit){
+  double width10 = MediaQuery.of(context).size.width / 41;
+  double height10 = MediaQuery.of(context).size.height / 82;
+  return Container(
+    padding: EdgeInsets.symmetric(
+        horizontal: width10 , vertical: height10 ),
+    child: SingleChildScrollView(
+      physics:BouncingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          BlocConsumer<LayoutCubit,LayoutStates>(builder: (context, state) {
+            return InkWell(
+              borderRadius: BorderRadius.circular(width10*6),
+              onTap: (){
+                cubit.getItemImage();
+              },
+              child: Container(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                height: height10 * 12,
+                width: width10 * 12,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: cubit.itemImage==null?AssetImage("assets/images/add-image.png") as ImageProvider:FileImage(cubit.itemImage!))),
+              ),
+            );
+          }, listener: (context, state) {
+
+          },),
+          SizedBox(height: height10*0.5),
+          Text(
+            "Add image",
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(
+                fontSize: height10 * 1.7,
+                color: Colors.black26),
+          ),
+          SizedBox(height: height10 * 2),
+          CustomFormField(hintText: "Product Name", prefixIcon: Icons.text_fields),
+          SizedBox(
+            height: height10*2.8 ,
+          ),
+          CustomFormField(hintText: "Product Price", prefixIcon: Icons.euro,),
+          SizedBox(
+            height: height10*2.8 ,
+          ),
+          CustomFormField(
+              hintText: "Product Description", prefixIcon: Icons.description,),
+          SizedBox(
+            height: height10*2.8 ,
+          ),
+          CustomButton(
+            transparent: true,
+            margin: EdgeInsets.only(right: width10/2),
+            width: width10*15,
+            onPressed: () {
+            },
+            buttonText: "Post",
+            fontSize: 30,
+            height: height10 * 6,
+          ),
+          SizedBox(
+            height: height10 * 23,
+          ),
+
+        ],
+      ),
+    ),
   );
 }

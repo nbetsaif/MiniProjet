@@ -1,39 +1,52 @@
+import 'package:mini_projet/models/favorite_model.dart';
+import 'package:mini_projet/models/orders_model.dart';
+
+import '../../models/item_model.dart';
+
 abstract class LayoutStates{}
 
 class LayoutInitialState extends LayoutStates{
-  void onInit(){
-
-  }
-
 }
 class LayoutChangeBotNav extends LayoutStates{}
-class HomeLoadingState extends LayoutStates{}
-class HomeSuccessState extends LayoutStates{
+
+class PostOrdersLoadingState extends LayoutStates{}
+class PostOrdersSuccessState extends LayoutStates{
+  List<OrderModel> orders;
+  PostOrdersSuccessState({required this.orders});
 }
-class HomeErrorState extends LayoutStates{
+class PostOrdersErrorState extends LayoutStates{
   late final dynamic error;
-  HomeErrorState(this.error);
+  PostOrdersErrorState(this.error);
 }
 
-class CategoryLoadingState extends LayoutStates{}
-class CategorySuccessState extends LayoutStates{}
-class CategoryErrorState extends LayoutStates{
+class GetOrdersLoadingState extends LayoutStates{}
+class GetOrdersSuccessState extends LayoutStates{
+  List<OrderModel> orders;
+  GetOrdersSuccessState({required this.orders});
+}
+class GetOrdersErrorState extends LayoutStates{
   late final dynamic error;
-  CategoryErrorState(this.error);
+  GetOrdersErrorState(this.error);
 }
 
-class FavoriteChangeState extends LayoutStates{}
-class FavoriteSuccessState extends LayoutStates{
+class GetFavoritesLoadingState extends LayoutStates{}
+class GetFavoriteSuccessState extends LayoutStates{
+  List<FavoriteModel> favorites;
+  GetFavoriteSuccessState({required this.favorites});
 }
-class FavoriteErrorState extends LayoutStates{
-  late final dynamic error;
-  FavoriteErrorState(this.error);
-}
-class GetFavoriteChangeState extends LayoutStates{}
-class GetFavoriteSuccessState extends LayoutStates{}
 class GetFavoriteErrorState extends LayoutStates{
   late final dynamic error;
   GetFavoriteErrorState(this.error);
+}
+
+class PostFavoritesLoadingState extends LayoutStates{}
+class PostFavoriteSuccessState extends LayoutStates{
+  List<FavoriteModel> favorites;
+  PostFavoriteSuccessState({required this.favorites});
+}
+class PostFavoriteErrorState extends LayoutStates{
+  late final dynamic error;
+  PostFavoriteErrorState(this.error);
 }
 
 class UserLoadingState extends LayoutStates{}
@@ -42,7 +55,22 @@ class UserErrorState extends LayoutStates{
   late final dynamic error;
   UserErrorState(this.error);
 }
-class UserUpdateLoadingState extends LayoutStates{}
+
+class GetItemsLoadingState extends LayoutStates{}
+class GetItemsSuccessState extends LayoutStates{
+  List<ItemModel> items;
+  GetItemsSuccessState({required this.items});
+}
+class GetItemsErrorState extends LayoutStates{
+  late final dynamic error;
+  GetItemsErrorState(this.error);
+}
 
 class UserStartEditProfileState extends LayoutStates{}
 class UserDoneEditProfileState extends LayoutStates{}
+
+class ProfileImagePickedSuccessState extends LayoutStates{}
+class ProfileImagePickedErrorState extends LayoutStates{}
+
+class ItemImagePickedSuccessState extends LayoutStates{}
+class ItemImagePickedErrorState extends LayoutStates{}

@@ -16,7 +16,11 @@ class OrdersScreen extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return orderItem(context,index);
+              return
+                LayoutCubit.get(context).isClient==true?
+                orderItem(context,index,null)
+                    :
+                orderTraderItem(context,index,null);
             },
             separatorBuilder: (context, index) {
               return divider();

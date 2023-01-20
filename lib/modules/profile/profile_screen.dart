@@ -12,8 +12,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width10 = MediaQuery.of(context).size.width / 39.272;
-    double height10 = MediaQuery.of(context).size.height / 76.95;
+    double width10 = MediaQuery.of(context).size.width / 41;
+    double height10 = MediaQuery.of(context).size.height / 82;
     return BlocConsumer<LayoutCubit, LayoutStates>(
       builder: (context, state) {
         var cubit = LayoutCubit.get(context);
@@ -29,38 +29,52 @@ class ProfileScreen extends StatelessWidget {
                     height: height10 * 3,
                   ),
                   //profile image
-                  Container(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    height: height10 * 14,
-                    width: width10 * 14,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage("assets/images/test1.png"))),
-                    child: cubit.editingProfile==true?Container(
-                      padding: EdgeInsets.only(bottom: height10 * 0.7),
-                      width: double.infinity,
-                      alignment: Alignment.bottomCenter,
+                  InkWell(
+                    borderRadius: BorderRadius.circular(width10*7),
+                    onTap: (){
+                      if(cubit.editingProfile == true){
+                        cubit.getProfileImage();
+                      }
+                    },
+                    child: Container(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      height: height10 * 14,
+                      width: width10 * 14,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            stops: [
-                              0.3,
-                              0.3
-                            ],
-                            colors: [
-                              Colors.black.withOpacity(0.3),
-                              Colors.grey.withOpacity(0)
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter),
-                      ),
-                      child: Icon(
-                        size: height10 * 3,
-                        Icons.camera_alt,
-                        color: AppColors.greyColor.withOpacity(0.7),
-                      ),
-                    ):null,
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image:cubit.profileImage==null?AssetImage("assets/images/defaultImage.jpg") as ImageProvider:FileImage(cubit.profileImage!)
+                              // cubit.userModel.image == null ? AssetImage("assets/images/defaultImage.jpg") as ImageProvider
+                              //     : NetworkImage(cubit.userModel.image!)
+
+                          )),
+                      child: cubit.editingProfile == true
+                          ? Container(
+                              padding: EdgeInsets.only(bottom: height10 * 0.7),
+                              width: double.infinity,
+                              alignment: Alignment.bottomCenter,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    stops: [
+                                      0.3,
+                                      0.3
+                                    ],
+                                    colors: [
+                                      Colors.black.withOpacity(0.3),
+                                      Colors.grey.withOpacity(0)
+                                    ],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter),
+                              ),
+                              child: Icon(
+                                size: height10 * 3,
+                                Icons.camera_alt,
+                                color: AppColors.greyColor.withOpacity(0.7),
+                              ),
+                            )
+                          : null,
+                    ),
                   ),
                   SizedBox(
                     height: height10,
@@ -130,8 +144,12 @@ class ProfileScreen extends StatelessWidget {
                                 width: width10 * 10,
                                 child: Text(
                                   "Sign Out",
-                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                      fontSize: height10 * 1.8, color: Colors.red),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          fontSize: height10 * 1.8,
+                                          color: Colors.red),
                                 ),
                               ),
                             ),
@@ -139,65 +157,89 @@ class ProfileScreen extends StatelessWidget {
                           ],
                         )
                       : Column(
-                        children: [
-                          SizedBox(height: height10*1,),
-                          Text(
-                    "Edit Your Profile",
-                    style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge!
-                            .copyWith(fontSize: height10 * 2.2),
-                  ),
-                          SizedBox(height: height10*2,)
-                        ],
-                      ),
-
+                          children: [
+                            SizedBox(
+                              height: height10 * 1,
+                            ),
+                            Text(
+                              "Edit Your Profile",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(fontSize: height10 * 2.2),
+                            ),
+                            SizedBox(
+                              height: height10 * 2,
+                            )
+                          ],
+                        ),
                 ],
               ),
               //fields
-              CustomFormField(hintText: "Name", prefixIcon: Icons.person,enabled: cubit.editingProfile!,),
-              SizedBox(
-                height: height10 * 2.8,
+              CustomFormField(
+                hintText: "Name",
+                prefixIcon: Icons.person,
+                enabled: cubit.editingProfile!,
               ),
-              CustomFormField(hintText: "Email", prefixIcon: Icons.email,enabled: cubit.editingProfile!),
               SizedBox(
                 height: height10 * 2.8,
               ),
               CustomFormField(
-                  hintText: "Mobile No", prefixIcon: Icons.phone_android,enabled: cubit.editingProfile!),
+                  hintText: "Email",
+                  prefixIcon: Icons.email,
+                  enabled: cubit.editingProfile!),
+              SizedBox(
+                height: height10 * 2.8,
+              ),
+              CustomFormField(
+                  hintText: "Mobile No",
+                  prefixIcon: Icons.phone_android,
+                  enabled: cubit.editingProfile!),
               SizedBox(
                 height: height10 * 2.8,
               ),
 
               cubit.editingProfile == true
                   ? Column(
-                    children: [
-                      CustomFormField(
-                        hintText: "Password",
-                        prefixIcon: Icons.lock,
-                        isPassword: true,
-                      ),
-                      SizedBox(
-                        height: height10 * 2.8,
-                      ),
-                      CustomFormField(
-                        hintText: "Confirm Password",
-                        prefixIcon: Icons.lock,
-                        isPassword: true,
-                      ),
-                      SizedBox(
-                        height: height10 * 2.8,
-                      ),
-                      CustomButton(
+                      children: [
+                        CustomFormField(
+                          hintText: "Password",
+                          prefixIcon: Icons.lock,
+                          isPassword: true,
+                        ),
+                        SizedBox(
+                          height: height10 * 2.8,
+                        ),
+                        CustomFormField(
+                          hintText: "Confirm Password",
+                          prefixIcon: Icons.lock,
+                          isPassword: true,
+                        ),
+                        SizedBox(
+                          height: height10 * 2.8,
+                        ),
+                        CustomButton(
                           onPressed: () {
                             cubit.doneEditProfile();
                           },
-                          buttonText: "Save",
+                          buttonText: "Update",
                           margin: EdgeInsets.symmetric(horizontal: width10 * 8),
                           height: height10 * 5,
                         ),
-                    ],
-                  )
+                        SizedBox(
+                          height: height10 * 2.8,
+                        ),
+                        CustomButton(
+                          onPressed: () {
+                            cubit.doneEditProfile();
+                          },
+                          buttonText: "Cancel",
+                          margin: EdgeInsets.symmetric(horizontal: width10 * 8),
+                          height: height10 * 5,
+                          transparent: true,
+                        ),
+                      ],
+                    )
                   : SizedBox(),
             ],
           ),

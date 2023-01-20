@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_projet/layout/cubit/states.dart';
 import 'package:mini_projet/modules/home/widget/widgets.dart';
 import 'package:mini_projet/modules/product/prodct_detail_screen.dart';
-import 'package:mini_projet/shared/styles/colors.dart';
 import '../../layout/cubit/cubit.dart';
+import '../../shared/styles/colors.dart';
 import '../../shared/widgets/custom_button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,13 +13,41 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width10 = MediaQuery.of(context).size.width / 41;
+    double height10 = MediaQuery.of(context).size.height / 82;
     return BlocConsumer<LayoutCubit, LayoutStates>(
         builder: (context, state) {
           return CustomScrollView(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             slivers: [
-              SliverToBoxAdapter(
+              if (LayoutCubit.get(context).isClient==false)SliverToBoxAdapter(
+                child:Column(
+                  children: [
+                    CustomButton(
+                      margin: EdgeInsets.only(right: width10/2),
+                      filledColor: Colors.green,
+                      width: width10*8,
+                      onPressed: () {
+                        showModalBottomSheet(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(30),
+                                    topLeft: Radius.circular(30))),
+                            context: context,
+                            builder: (context) => newItem(context,LayoutCubit.get(context)));
+                      },
+                      buttonText: "+",
+                      fontSize: 40,
+                      height: height10 * 8,
+                    ),
+                    SizedBox(height: height10*2,),
+                    Text('Add New Product'),
+                    SizedBox(height: height10*2,),
+                  ],
+                ),
+              ) ,
+              if (LayoutCubit.get(context).isClient==true) SliverToBoxAdapter(
                 child: Container(
                   height: 230,
                   margin: EdgeInsets.symmetric(vertical: 20),
