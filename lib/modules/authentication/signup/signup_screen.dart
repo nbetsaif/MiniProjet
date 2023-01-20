@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_projet/layout/layout_screen.dart';
 import 'package:mini_projet/modules/authentication/signin/signin_screen.dart';
 import 'package:mini_projet/modules/authentication/signup/cubit/signup_cubit.dart';
 import 'package:mini_projet/modules/authentication/signup/cubit/signup_states.dart';
@@ -112,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: height10 * 5,
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
-
+                                cubit.register(context, email: cubit.email.text, name:cubit.name.text , phone:cubit.phone.text, password: cubit.password.text,isClient: widget.isClient);
                               }
                             },
                             buttonText: "SignUp",

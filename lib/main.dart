@@ -6,11 +6,15 @@ import 'package:mini_projet/modules/authentication/signup/signup_screen.dart';
 import 'package:mini_projet/modules/home/home_screen.dart';
 import 'package:mini_projet/modules/product/prodct_detail_screen.dart';
 import 'package:mini_projet/modules/welcome/welcome_screen.dart';
+import 'package:mini_projet/shared/network/remote/dio_helper.dart';
 import 'package:mini_projet/shared/styles/theme.dart';
 import 'layout/layout_screen.dart';
 
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  DioHelper.init();
   runApp(const MyApp());
 }
 

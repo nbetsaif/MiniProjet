@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_projet/modules/authentication/signup/cubit/signup_states.dart';
 
+import '../../../../layout/layout_screen.dart';
 import '../../../../shared/network/remote/dio_helper.dart';
 
 class SignUpCubit extends Cubit<SignUpStates>{
@@ -45,11 +46,14 @@ class SignUpCubit extends Cubit<SignUpStates>{
     return null;
   }
 
-  void register(context,{required email , required name, required phone , required password})
+  void register(context,{required email , required name, required phone , required password,required bool isClient})
   {
     emit(RegisterLoadingState());
-    DioHelper.postData(url: "register", data: {'name':name,'email':email,'phone':phone,'password':password}).then((value) {
+    DioHelper.postData(url: "client/signup", data: {'name':name,'email':email,'phone':phone,'password':password}).then((value) {
       emit(RegisterSuccessState());
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: isClient),));
+
+      print(value.toString());
     }).catchError((error){
       print(error.toString());
       emit(RegisterErrorState(error));
