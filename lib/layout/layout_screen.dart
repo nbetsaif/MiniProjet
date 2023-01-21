@@ -36,7 +36,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
     return BlocConsumer<LayoutCubit, LayoutStates>(
       listener: (context, state) {},
       builder: (context, state) {
+
         var cubit = LayoutCubit.get(context);
+        cubit.getUserData(widget.isClient);
         cubit.isClient=widget.isClient;
         return Scaffold(
           backgroundColor: Colors.white,

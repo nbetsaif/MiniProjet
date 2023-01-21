@@ -43,10 +43,8 @@ class SignInCubit extends Cubit<SignInStates>{
     ).then(
             (value) {
               token=value.data['existingUser']['_id'];
-
-          emit(LoginSuccessState());
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: isClient),));
-
+              emit(LoginSuccessState());
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: isClient),));
             }
     ).catchError(
             (error){

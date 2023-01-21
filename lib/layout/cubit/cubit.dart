@@ -145,13 +145,15 @@ class LayoutCubit extends Cubit<LayoutStates> {
 
 
   late UserModel userModel;
-  Future<void> getUserData () async {
+  Future<void> getUserData (bool isClient) async {
     emit(UserLoadingState());
-    await DioHelper.getData(url: 'USER',token: token).then(
+    print(token);
+    await DioHelper.getData(url: isClient==true?'client/user/$token':'merchant/user/$token').then(
             (value)
         {
           userModel= UserModel.fromJson(value.data);
           emit(UserSuccessState());
+          print(value.data.toString());
         }
     ).catchError(
             (error) {
