@@ -194,6 +194,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
         {
           print(value.data);
           userModel= UserModel.fromJson(value.data[isClient==true?"client":"merchant"]);
+          userModel= UserModel.fromJson(value.data["client"]);
           emit(UserSuccessState());
         }
     ).catchError(
