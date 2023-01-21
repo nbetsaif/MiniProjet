@@ -39,6 +39,7 @@ dependencies:
   carousel_slider: ^4.2.0
   dio: ^4.0.6
   image_picker: ^0.8.6
+  fluttertoast: ^8.1.2
 
 
 

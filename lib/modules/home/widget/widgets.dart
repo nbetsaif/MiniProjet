@@ -104,10 +104,10 @@ Widget gridItem(int index,context){
           ],
         ),
       ),
-      Padding(
+      LayoutCubit.get(context).isClient==true?Padding(
         padding: const EdgeInsets.all(8.0),
         child: Icon(Icons.favorite_border),
-      )
+      ):Container()
     ],
   );
 }

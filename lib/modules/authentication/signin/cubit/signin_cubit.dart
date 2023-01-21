@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_projet/modules/authentication/signin/cubit/signin_states.dart';
+import 'package:mini_projet/shared/constants/constants.dart';
 
+import '../../../../layout/layout_screen.dart';
 import '../../../../models/user_model.dart';
 import '../../../../shared/network/remote/dio_helper.dart';
 
@@ -29,10 +31,10 @@ class SignInCubit extends Cubit<SignInStates>{
     return null;
   }
 
-  void userLogin({required String email, required String password}){
+  void userLogin(context,{required String email, required String password,required bool isClient}){
     emit(LoginLoadingState());
     DioHelper.postData
-      (url: 'login',
+      (url:isClient==true?"client/signin":"merchant/signin",
         data:
         {
           'email':email,
@@ -40,13 +42,16 @@ class SignInCubit extends Cubit<SignInStates>{
         }
     ).then(
             (value) {
-          userModel=UserModel.fromJson(value.data);
-          emit(LoginSuccessState(userModel));
-        }
+              token=value.data['existingUser']['_id'];
+
+          emit(LoginSuccessState());
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: isClient),));
+
+            }
     ).catchError(
             (error){
           print(error.toString());
-          emit(LoginErrorState(error));
+          emit(LoginErrorState(error.toString()));
         });
 
   }

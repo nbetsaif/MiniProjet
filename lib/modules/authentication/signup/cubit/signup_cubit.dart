@@ -49,14 +49,13 @@ class SignUpCubit extends Cubit<SignUpStates>{
   void register(context,{required email , required name, required phone , required password,required bool isClient})
   {
     emit(RegisterLoadingState());
-    DioHelper.postData(url: "client/signup", data: {'name':name,'email':email,'phone':phone,'password':password}).then((value) {
+    DioHelper.postData(url:isClient==true? "client/signup":"merchant/signup", data: {'name':name,'email':email,'phone':phone,'password':password}).then((value) {
       emit(RegisterSuccessState());
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: isClient),));
 
-      print(value.toString());
     }).catchError((error){
       print(error.toString());
-      emit(RegisterErrorState(error));
+      emit(RegisterErrorState(error.toString()));
     });
   }
 }

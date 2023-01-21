@@ -109,6 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: height10 * 2.8,
                           ),
                           //loginButton
+                          state is RegisterLoadingState ==false?
                           CustomButton(
                             height: height10 * 5,
                             onPressed: () {
@@ -119,7 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             buttonText: "SignUp",
                             margin: EdgeInsets.symmetric(
                                 horizontal: height10 * 3.6),
-                          ),
+                          ):CircularProgressIndicator(color: Colors.black,),
                           SizedBox(
                             height: height10 * 2,
                           ),

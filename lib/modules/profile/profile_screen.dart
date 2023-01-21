@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_projet/layout/cubit/cubit.dart';
 import 'package:mini_projet/layout/cubit/states.dart';
+import 'package:mini_projet/modules/welcome/welcome_screen.dart';
 
 import '../../shared/styles/colors.dart';
 import '../../shared/widgets/custom_button.dart';
@@ -137,7 +138,9 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             //SignOut Button
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen(),));
+                              },
                               child: Container(
                                 alignment: Alignment.center,
                                 height: height10 * 5,

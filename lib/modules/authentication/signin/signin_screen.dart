@@ -26,7 +26,9 @@ class _SignInScreenState extends State<SignInScreen> {
     return BlocProvider(
         create: (context) => SignInCubit(),
         child: BlocConsumer<SignInCubit,SignInStates>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            print(state);
+          },
           builder: (context, state) {
             SignInCubit cubit=SignInCubit.get(context);
             return Scaffold(
@@ -77,13 +79,12 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         SizedBox(height: height10 * 3),
                         //loginButton
-                        CustomButton(
+                        state is LoginLoadingState ==true?
+                        CircularProgressIndicator(color: Colors.black,):CustomButton(
                           height: height10 * 5,
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: widget.isClient,),));
-
                             if (formKey.currentState!.validate()) {
-
+                              cubit.userLogin(context,email: cubit.email.text, password:cubit.password.text, isClient: widget.isClient);
                             }
                           },
                           buttonText: "Login",
