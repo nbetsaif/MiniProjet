@@ -192,7 +192,8 @@ class LayoutCubit extends Cubit<LayoutStates> {
     await DioHelper.getData(url: isClient==true?'client/user/$token':'merchant/user/$token').then(
             (value)
         {
-          userModel= UserModel.fromJson(value.data["client"]);
+          print(value.data);
+          userModel= UserModel.fromJson(value.data[isClient==true?"client":"merchant"]);
           emit(UserSuccessState());
         }
     ).catchError(

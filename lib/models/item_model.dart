@@ -5,10 +5,13 @@ class ItemModel {
   late String description;
   late String material;
   late String image;
-  late int id;
+  late String id;
+  late String traderId;
 
   ItemModel(
-      {required this.date,required this.name,
+      {
+        required this.traderId,
+        required this.date,required this.name,
       required this.price,
       required this.description,
       required this.material,
@@ -23,5 +26,6 @@ class ItemModel {
     material = data['material'];
     image = data['image'];
     id = data['id'];
+    traderId=data['merchant'];
   }
 }
