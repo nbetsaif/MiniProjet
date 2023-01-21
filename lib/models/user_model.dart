@@ -1,10 +1,12 @@
 class UserModel {
   late String name;
+  late String password;
   late String email;
   late String phone;
   late String? image;
 
   UserModel({
+    required this.password,
     required this.name,
     required this.email,
     required this.phone,
@@ -16,6 +18,7 @@ class UserModel {
     email = data['email']??"";
     phone = data['phone']??"";
     image = data['image']??"";
+    password = data['password']??"";
   }
 
   Map<String, dynamic> toJson() {
@@ -24,6 +27,7 @@ class UserModel {
     data['email'] = this.email;
     data['phone'] = this.phone;
     data['image'] = this.image;
+    data['password'] = this.password;
     return data;
   }
 

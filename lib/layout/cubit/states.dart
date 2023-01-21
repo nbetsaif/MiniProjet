@@ -31,7 +31,7 @@ class GetOrdersErrorState extends LayoutStates{
 
 class GetFavoritesLoadingState extends LayoutStates{}
 class GetFavoriteSuccessState extends LayoutStates{
-  List<FavoriteModel> favorites;
+  List<ItemModel> favorites;
   GetFavoriteSuccessState({required this.favorites});
 }
 class GetFavoriteErrorState extends LayoutStates{
@@ -41,7 +41,7 @@ class GetFavoriteErrorState extends LayoutStates{
 
 class PostFavoritesLoadingState extends LayoutStates{}
 class PostFavoriteSuccessState extends LayoutStates{
-  List<FavoriteModel> favorites;
+  List<ItemModel> favorites;
   PostFavoriteSuccessState({required this.favorites});
 }
 class PostFavoriteErrorState extends LayoutStates{

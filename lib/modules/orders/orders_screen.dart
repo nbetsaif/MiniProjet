@@ -12,20 +12,29 @@ class OrdersScreen extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return BlocConsumer<LayoutCubit, LayoutStates>(
       builder: (context, state) {
-        return ListView.separated(
+        var cubit=LayoutCubit.get(context);
+        return cubit.orders.length!=0? ListView.separated(
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return
                 LayoutCubit.get(context).isClient==true?
-                orderItem(context,index,null)
+                orderItem(context,index,cubit.orders[index].state)
                     :
-                orderTraderItem(context,index,null);
+                orderTraderItem(context,index,cubit.orders[index].state);
             },
             separatorBuilder: (context, index) {
               return divider();
             },
-            itemCount: 3);
+            itemCount:cubit.orders.length):
+        Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Image.asset("assets/images/empty.png",height:MediaQuery.of(context).size.height/1.7 ,),
+                Text('No Orders Yet',)
+              ],
+            )  ;
       },
       listener: (context, state) {},
     );

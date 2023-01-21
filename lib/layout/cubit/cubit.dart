@@ -25,6 +25,48 @@ class LayoutCubit extends Cubit<LayoutStates> {
   int currentIndex = 0;
 
   bool isClient = true;
+  final name=TextEditingController();
+  final email=TextEditingController();
+  final password=TextEditingController();
+  final confirmPassword=TextEditingController();
+  final phone=TextEditingController();
+
+  String? nameValidator(String? value){
+    if(value!.isNotEmpty){
+      if(!RegExp(r'^[a-z A-Z]+$').hasMatch(value)){
+        return "Enter correct name";
+      }
+    }
+
+    return null;
+  }
+  String? phoneValidator(String? value){
+    if(value!.isNotEmpty)
+    if(!RegExp(r'^((\+|00)216)?(7|9|4|2|5)[0-9]{7}').hasMatch(value)){
+      return "Enter correct phone number";
+    }
+    return null;
+  }
+  String?  emailValidator(String? value){
+    if(value!.isNotEmpty)
+    if(!RegExp(r'^[\w-\,]+@([\w-]+\.)+[\w]{2,5}').hasMatch(value)){
+      return "Enter correct email";
+    }
+    return null;
+  }
+  String? passwordValidator(String? value){
+    if(value!.isNotEmpty)
+    if(!RegExp(r'^(?=.*[0-9a-zA-Z]).{6,}$').hasMatch(value)){
+      return "Enter correct password";
+    }
+    return null;
+  }
+  String? confirmPasswordValidator(String? value){
+    if(password.text!=value){
+      return "Password do not match";
+    }
+    return null;
+  }
 
   void changeScreen(int index) {
     currentIndex = index;
@@ -61,7 +103,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
     ProfileScreen()
   ];
 
-  List<FavoriteModel> favorites = [];
+  List<ItemModel> favorites = [];
   List<OrderModel> orders = [];
   List<ItemModel> items = [];
 
@@ -147,13 +189,11 @@ class LayoutCubit extends Cubit<LayoutStates> {
   late UserModel userModel;
   Future<void> getUserData (bool isClient) async {
     emit(UserLoadingState());
-    print(token);
     await DioHelper.getData(url: isClient==true?'client/user/$token':'merchant/user/$token').then(
             (value)
         {
-          userModel= UserModel.fromJson(value.data);
+          userModel= UserModel.fromJson(value.data["client"]);
           emit(UserSuccessState());
-          print(value.data.toString());
         }
     ).catchError(
             (error) {

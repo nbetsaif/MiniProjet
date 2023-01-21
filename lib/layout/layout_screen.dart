@@ -5,9 +5,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mini_projet/layout/cubit/cubit.dart';
 import 'package:mini_projet/layout/cubit/states.dart';
 
+import '../models/user_model.dart';
+
 class LayoutScreen extends StatefulWidget {
+  UserModel userData;
   final bool isClient;
-  const LayoutScreen({required this.isClient,Key? key}) : super(key: key);
+   LayoutScreen({required this.userData,required this.isClient,Key? key}) : super(key: key);
 
   @override
   State<LayoutScreen> createState() => _LayoutScreenState();
@@ -34,12 +37,15 @@ class _LayoutScreenState extends State<LayoutScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return BlocConsumer<LayoutCubit, LayoutStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+
+      },
       builder: (context, state) {
 
         var cubit = LayoutCubit.get(context);
-        cubit.getUserData(widget.isClient);
         cubit.isClient=widget.isClient;
+        cubit.getUserData(widget.isClient);
+        // cubit.userModel=widget.userData;
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(

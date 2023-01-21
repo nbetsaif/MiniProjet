@@ -42,9 +42,11 @@ class SignInCubit extends Cubit<SignInStates>{
         }
     ).then(
             (value) {
+              userModel=UserModel.fromJson(value.data['existingUser']);
               token=value.data['existingUser']['_id'];
+              // print(userModel.toJson());
               emit(LoginSuccessState());
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: isClient),));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: isClient,userData: userModel),));
             }
     ).catchError(
             (error){

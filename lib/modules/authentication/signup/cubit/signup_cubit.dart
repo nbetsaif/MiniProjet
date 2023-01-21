@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_projet/modules/authentication/signup/cubit/signup_states.dart';
 
 import '../../../../layout/layout_screen.dart';
+import '../../../../models/user_model.dart';
 import '../../../../shared/network/remote/dio_helper.dart';
 
 class SignUpCubit extends Cubit<SignUpStates>{
@@ -46,12 +47,15 @@ class SignUpCubit extends Cubit<SignUpStates>{
     return null;
   }
 
+  late UserModel userModel;
   void register(context,{required email , required name, required phone , required password,required bool isClient})
   {
     emit(RegisterLoadingState());
     DioHelper.postData(url:isClient==true? "client/signup":"merchant/signup", data: {'name':name,'email':email,'phone':phone,'password':password}).then((value) {
       emit(RegisterSuccessState());
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: isClient),));
+      userModel=UserModel.fromJson(value.data['existingUser']);
+      // print(userModel.toString());
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: isClient,userData: userModel),));
 
     }).catchError((error){
       print(error.toString());
