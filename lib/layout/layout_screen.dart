@@ -44,7 +44,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
         var cubit = LayoutCubit.get(context);
         cubit.isClient=widget.isClient;
-        cubit.getUserData(widget.isClient);
+        cubit..getUserData(widget.isClient)..getAllItems(widget.isClient);
         // cubit.userModel=widget.userData;
         return Scaffold(
           backgroundColor: Colors.white,

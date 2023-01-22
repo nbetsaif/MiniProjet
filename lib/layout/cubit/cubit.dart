@@ -107,9 +107,9 @@ class LayoutCubit extends Cubit<LayoutStates> {
   List<OrderModel> orders = [];
   List<ItemModel> items = [];
 
-  Future<void> getAllItems() async {
+  Future<void> getAllItems(bool isClient) async {
     emit(GetItemsLoadingState());
-    DioHelper.getData(url: 'items',token: token).then((value) {
+    DioHelper.getData(url:isClient==true? 'client/product':'merchant/product/list/$token',).then((value) {
       items=value.data;
       emit(GetItemsSuccessState(items: items));
     }).catchError((error) {

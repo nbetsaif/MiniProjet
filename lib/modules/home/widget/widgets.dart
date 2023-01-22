@@ -73,7 +73,7 @@ Widget sliderItem(int index, context,) {
   );
 }
 
-Widget gridItem(int index,context){
+Widget gridItem(int index,context,LayoutCubit cubit){
   double screenWidth=MediaQuery.of(context).size.width;
   return Stack(
     alignment: Alignment.topRight,
@@ -93,7 +93,7 @@ Widget gridItem(int index,context){
             Expanded(
               child: Column(
                 children: [
-                  Center(child: Text('Artsy',style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis,)),
+                  Center(child: Text(cubit.items[index].name,style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis,)),
                   SizedBox(height: 15,),
                   Text("SHOP NOW",maxLines: 1,),
                   SizedBox(height: 5,),

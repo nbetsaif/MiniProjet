@@ -42,13 +42,13 @@ class ProductScreen extends StatelessWidget {
                               SizedBox(height: 10,),
                               SizedBox(
                                   width: screenWidth*0.3,
-                                  child: Center(child: Text('Artsy',style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis,))),
+                                  child: Center(child: Text(cubit.items[index].name,style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis,))),
                               SizedBox(height: 10,),
                               Text("Wallet with chain",maxLines: 1,style: TextStyle(fontSize: 14),),
                               SizedBox(height: 10,),
                               Text("Style #36252 0YK0G 1000",maxLines: 1,style: TextStyle(fontSize: 14,color: Colors.black.withOpacity(.4)),),
                               SizedBox(height: 10,),
-                              Text('\$564',style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                              Text('\$${cubit.items[index].price}',style: TextStyle(fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis,),
                               SizedBox(height: 10,),
                               cubit.isClient==true? CustomButton(buttonText: 'BUY NOW ',onPressed: (){},width: screenWidth*0.3,center: true,):Container()
 
@@ -88,11 +88,11 @@ class ProductScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10,),
-                    ExpandableTextWidget(text: 'As in handbags, the double ring and bar design defines the wallet shape, highlighting the front flap closure which is tucked inside the hardware. Completed with an organizational interior, the black leather wallet features a detachable chain.As in handbags, the double ring and bar design defines the wallet shape, highlighting the front flap closure which is tucked iAs in handbags, the double ring and bar design defines the wallet shape, highlighting the front flap closure which is tucked iAs in handbags, the double ring and bar design defines the wallet shape, highlighting the front flap closure which is tucked i'),
+                    ExpandableTextWidget(text: cubit.items[index].description),
                     SizedBox(height: 30,),
                     Text('Material & care',style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(height: 10,),
-                    ExpandableTextWidget(text: "All products are made with carefully selected materials. Please handle with care for longer product life.Protect from direct light, heat and rain. Should itbecome wet, dry it immediately with a soft clothStore in the provided flannel bag or boxClean with a soft, dry cloth"),
+                    ExpandableTextWidget(text: cubit.items[index].material),
                     SizedBox(height: 10,),
                     cubit.isClient==true?CustomButton(onPressed: (){
                       Navigator.pop(context);
