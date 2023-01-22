@@ -19,6 +19,20 @@ class PostOrdersErrorState extends LayoutStates{
   PostOrdersErrorState(this.error);
 }
 
+class AddNewItemLoadingState extends LayoutStates{}
+class AddNewItemSuccessState extends LayoutStates{}
+class AddNewItemErrorState extends LayoutStates{
+  late final dynamic error;
+  AddNewItemErrorState(this.error);
+}
+
+class DeleteItemLoadingState extends LayoutStates{}
+class DeleteItemSuccessState extends LayoutStates{}
+class DeleteItemErrorState extends LayoutStates{
+  late final dynamic error;
+ DeleteItemErrorState(this.error);
+}
+
 class GetOrdersLoadingState extends LayoutStates{}
 class GetOrdersSuccessState extends LayoutStates{
   List<OrderModel> orders;

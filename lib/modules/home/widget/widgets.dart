@@ -88,7 +88,7 @@ Widget gridItem(int index,context,LayoutCubit cubit){
             SizedBox(height: 10,),
             Hero(
               tag: 'image$index',
-                child: Image.network(cubit.userModel.image!,height: 110,width: screenWidth*0.3,fit: BoxFit.cover,)),
+                child: Image.network(cubit.items[index].image!=""?cubit.items[index].image:"http://sc04.alicdn.com/kf/UTB8zaVAs3QydeJk43PU763yQpXao.png",height: 110,width: screenWidth*0.3,fit: BoxFit.cover,)),
             SizedBox(height: 10,),
             Expanded(
               child: Column(
@@ -154,16 +154,22 @@ Widget newItem(context,LayoutCubit cubit){
                 color: Colors.black26),
           ),
           SizedBox(height: height10 * 2),
-          CustomFormField(hintText: "Product Name", prefixIcon: Icons.text_fields),
+          CustomFormField(hintText: "Product Name", prefixIcon: Icons.text_fields,controller: cubit.productName,isName: true),
           SizedBox(
             height: height10*2.8 ,
           ),
-          CustomFormField(hintText: "Product Price", prefixIcon: Icons.euro,),
+          CustomFormField(hintText: "Product Price", prefixIcon: Icons.euro,controller: cubit.productPrice,isPhone: true),
           SizedBox(
             height: height10*2.8 ,
           ),
           CustomFormField(
-              hintText: "Product Description", prefixIcon: Icons.description,),
+              hintText: "Product Description", prefixIcon: Icons.description,controller: cubit.productDescription,isName: true),
+          SizedBox(
+            height: height10*2.8 ,
+          ),
+
+          CustomFormField(
+            hintText: "Product Material", prefixIcon: Icons.description,controller: cubit.productMaterial,isName: true),
           SizedBox(
             height: height10*2.8 ,
           ),
@@ -172,6 +178,8 @@ Widget newItem(context,LayoutCubit cubit){
             margin: EdgeInsets.only(right: width10/2),
             width: width10*15,
             onPressed: () {
+              cubit.addNewItem(name: cubit.productName.text, price: cubit.productPrice.text, description: cubit.productDescription.text, material: cubit.productMaterial.text);
+              Navigator.pop(context);
             },
             buttonText: "Post",
             fontSize: 30,

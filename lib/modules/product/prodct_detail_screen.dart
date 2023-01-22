@@ -34,7 +34,7 @@ class ProductScreen extends StatelessWidget {
                       height: 180,
                       child: Row(
                         children: [
-                          Expanded(child: Hero(tag: 'image$index',child: Image.network(cubit.items[index].image,height: 160,width:double.infinity,fit: BoxFit.cover,)),),
+                          Expanded(child: Hero(tag: 'image$index',child: Image.network(cubit.items[index].image!=""?cubit.items[index].image:"http://sc04.alicdn.com/kf/UTB8zaVAs3QydeJk43PU763yQpXao.png",height: 160,width:double.infinity,fit: BoxFit.cover,)),),
                           SizedBox(width: 10,),
                           Expanded(child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,7 +62,9 @@ class ProductScreen extends StatelessWidget {
                       children: [
                         Text('Description',style: TextStyle(fontWeight: FontWeight.bold),),
                         cubit.isClient==true?InkWell(
-                          onTap: (){},
+                          onTap: (){
+
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Icon(Icons.favorite_border),
@@ -72,15 +74,7 @@ class ProductScreen extends StatelessWidget {
                           filledColor: Colors.red,
                           width: width10*16,
                           onPressed: () {
-                            Fluttertoast.showToast(
-                                msg: "This is Center Short Toast",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0
-                            );
+                            cubit.deleteItem(index);
                           },
                           buttonText: "Delete Product",
                           height: height10 * 5,

@@ -191,6 +191,39 @@ class LayoutCubit extends Cubit<LayoutStates> {
     }
   }
 
+  final productName=TextEditingController();
+  final productPrice=TextEditingController();
+  final productDescription=TextEditingController();
+  final productMaterial=TextEditingController();
+
+  Future<void> addNewItem({required name,required price,required description , required material})  async {
+    emit(AddNewItemLoadingState());
+    DioHelper.postData(url: 'merchant/product/add/$token', data: {
+      "name" : name,
+      "price" : price,
+      "description" :description,
+      "material" : material,
+    }).then((value) {
+      getAllItems(false);
+      emit(AddNewItemSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AddNewItemErrorState(error));
+    });
+  }
+
+  Future<void> deleteItem(int index)  async {
+    emit(DeleteItemLoadingState());
+    DioHelper.deleteData(url: 'merchant/product/delete/${items[index].id}').then((value) {
+      getAllItems(false);
+      emit(DeleteItemSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(DeleteItemErrorState(error));
+    });
+  }
+
+
 
   late UserModel userModel;
   Future<void> getUserData (bool isClient) async {
