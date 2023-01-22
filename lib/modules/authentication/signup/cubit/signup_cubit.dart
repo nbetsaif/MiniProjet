@@ -4,6 +4,7 @@ import 'package:mini_projet/modules/authentication/signup/cubit/signup_states.da
 
 import '../../../../layout/layout_screen.dart';
 import '../../../../models/user_model.dart';
+import '../../../../shared/constants/constants.dart';
 import '../../../../shared/network/remote/dio_helper.dart';
 
 class SignUpCubit extends Cubit<SignUpStates>{
@@ -52,9 +53,10 @@ class SignUpCubit extends Cubit<SignUpStates>{
   {
     emit(RegisterLoadingState());
     DioHelper.postData(url:isClient==true? "client/signup":"merchant/signup", data: {'name':name,'email':email,'phone':phone,'password':password}).then((value) {
+      print(value);
       emit(RegisterSuccessState());
-      userModel=UserModel.fromJson(value.data['existingUser']);
-      // print(userModel.toString());
+      userModel=UserModel.fromJson(value.data['newUser']);
+      token=value.data['newUser']['_id'];
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LayoutScreen(isClient: isClient,userData: userModel),));
 
     }).catchError((error){
