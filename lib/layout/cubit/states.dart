@@ -56,6 +56,13 @@ class UserErrorState extends LayoutStates{
   UserErrorState(this.error);
 }
 
+class UpdateUserLoadingState extends LayoutStates{}
+class UpdateUserSuccessState extends LayoutStates{}
+class UpdateUserErrorState extends LayoutStates{
+  late final String error;
+  UpdateUserErrorState(this.error);
+}
+
 class GetItemsLoadingState extends LayoutStates{}
 class GetItemsSuccessState extends LayoutStates{
   List<ItemModel> items;

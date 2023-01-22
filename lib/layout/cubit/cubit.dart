@@ -204,6 +204,32 @@ class LayoutCubit extends Cubit<LayoutStates> {
         });
   }
 
+  Future<void> updateUserProfile (bool isClient, {required String email,required String name,required String phone, required String password}) async {
+    if(email!=""||name!=""||password!=""||phone!=""){
+      emit(UpdateUserLoadingState());
+      await DioHelper.putData(url: isClient==true?'client/update/$token':'merchant/update/$token',
+          data: {
+            'name':name??userModel.name,
+            'email':email??userModel.email,
+            'phone':phone??userModel.phone,
+            'password':password??userModel.password
+          }
+      ).then(
+              (value)
+          {
+            print(value.data);
+            userModel= UserModel.fromJson(value.data[isClient==true?"client":"merchant"]);
+            userModel= UserModel.fromJson(value.data["client"]);
+            emit(UpdateUserSuccessState());
+          }
+      ).catchError(
+              (error) {
+            print(error.toString());
+            emit(UpdateUserErrorState(error.toString()));
+          });
+    }
+
+  }
   //edit profile
   bool editingProfile = false;
 

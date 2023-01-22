@@ -245,6 +245,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () {
                               if(formKey.currentState!.validate()){
                                 cubit.doneEditProfile();
+                                cubit.updateUserProfile(cubit.isClient, email:  cubit.email.text, name: cubit.name.text,phone: cubit.phone.text,password:  cubit.password.text);
                               }
 
                             },
