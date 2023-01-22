@@ -209,10 +209,10 @@ class LayoutCubit extends Cubit<LayoutStates> {
       emit(UpdateUserLoadingState());
       await DioHelper.putData(url: isClient==true?'client/update/$token':'merchant/update/$token',
           data: {
-            'name':name??userModel.name,
-            'email':email??userModel.email,
-            'phone':phone??userModel.phone,
-            'password':password??userModel.password
+            'name':name==""?userModel.name:name,
+            'email':email==""?userModel.email:email,
+            'phone':phone==""?userModel.phone:phone,
+            'password':password==""?userModel.password:password
           }
       ).then(
               (value)
