@@ -88,7 +88,7 @@ Widget gridItem(int index,context,LayoutCubit cubit){
             SizedBox(height: 10,),
             Hero(
               tag: 'image$index',
-                child: Image.asset("assets/images/test2.png",height: 110,width: screenWidth*0.3,fit: BoxFit.cover,)),
+                child: Image.network(cubit.userModel.image!,height: 110,width: screenWidth*0.3,fit: BoxFit.cover,)),
             SizedBox(height: 10,),
             Expanded(
               child: Column(

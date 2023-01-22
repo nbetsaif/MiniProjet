@@ -108,9 +108,15 @@ class LayoutCubit extends Cubit<LayoutStates> {
   List<ItemModel> items = [];
 
   Future<void> getAllItems(bool isClient) async {
+
     emit(GetItemsLoadingState());
     DioHelper.getData(url:isClient==true? 'client/product':'merchant/product/list/$token',).then((value) {
-      items=value.data;
+      items=[];
+      (value.data['products'] as List).forEach((element) {
+        items.add(ItemModel.fromJson(element));
+
+      });
+      print(items);
       emit(GetItemsSuccessState(items: items));
     }).catchError((error) {
       print(error.toString());
@@ -192,9 +198,9 @@ class LayoutCubit extends Cubit<LayoutStates> {
     await DioHelper.getData(url: isClient==true?'client/user/$token':'merchant/user/$token').then(
             (value)
         {
-          print(value.data);
+          // print(value.data);
           userModel= UserModel.fromJson(value.data[isClient==true?"client":"merchant"]);
-          userModel= UserModel.fromJson(value.data["client"]);
+          // userModel= UserModel.fromJson(value.data["client"]);
           emit(UserSuccessState());
         }
     ).catchError(
@@ -216,9 +222,9 @@ class LayoutCubit extends Cubit<LayoutStates> {
           }
       ).then(
               (value)
-          {
-            print(value.data);
-            userModel= UserModel.fromJson(value.data[isClient==true?"client":"merchant"]);
+          async{
+            // print(value.data);
+           await getUserData(isClient);
             emit(UpdateUserSuccessState());
           }
       ).catchError(

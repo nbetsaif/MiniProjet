@@ -34,7 +34,7 @@ class ProductScreen extends StatelessWidget {
                       height: 180,
                       child: Row(
                         children: [
-                          Expanded(child: Hero(tag: 'image$index',child: Image.asset("assets/images/test2.png",height: 160,width:double.infinity,fit: BoxFit.cover,)),),
+                          Expanded(child: Hero(tag: 'image$index',child: Image.network(cubit.items[index].image,height: 160,width:double.infinity,fit: BoxFit.cover,)),),
                           SizedBox(width: 10,),
                           Expanded(child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
